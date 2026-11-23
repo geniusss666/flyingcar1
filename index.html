@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>亿航 EH216-S：技术、场景与市场可行性调研 | 飞行汽车技术基础 · 作业一</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F5F2EA; --card:#FFFFFF; --ink:#1E2622; --ink-soft:#3C4742;
+    --slate:#2C3E4A; --teal:#3E7C6F; --orange:#D95D39; --line:#D8D1C2;
+    --line-soft:#E7E1D3; --muted:#6B726C; --serif:"Noto Serif SC",Georgia,"Songti SC",serif;
+    --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- 封面 ---------- */
+  header.hero{border-bottom:1px solid var(--line)}
+  .hero-inner{padding:56px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.18em;color:var(--orange);text-transform:uppercase;margin-bottom:18px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(30px,5vw,46px);line-height:1.25;letter-spacing:.01em}
+  .subtitle{margin-top:14px;font-size:clamp(15px,2vw,18px);color:var(--ink-soft);max-width:760px}
+  .subtitle .en{display:block;font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+  .hero-fig{margin:30px 0 0;border:1px solid var(--line);background:var(--card)}
+  .hero-fig img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+  figcaption{font-size:12.5px;color:var(--muted);padding:10px 14px;border-top:1px solid var(--line-soft)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;font-size:13.5px;color:var(--ink-soft)}
+  .meta-row span b{font-weight:500;color:var(--ink)}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+  .kpi{background:var(--card);padding:18px 16px}
+  .kpi .num{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--slate)}
+  .kpi .num small{font-size:13px;font-weight:400;color:var(--muted)}
+  .kpi .lab{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  /* ---------- 目录 ---------- */
+  nav.toc{margin:36px 0 8px;padding:22px 26px;border:1px solid var(--line);background:var(--card)}
+  nav.toc h2{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--muted);font-weight:500;margin-bottom:14px}
+  nav.toc ol{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 28px;counter-reset:toc}
+  nav.toc li{counter-increment:toc;font-size:14.5px}
+  nav.toc li::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);color:var(--orange);margin-right:10px;font-size:12.5px}
+
+  /* ---------- 章节 ---------- */
+  section{padding:44px 0;border-bottom:1px solid var(--line-soft)}
+  section:last-of-type{border-bottom:none}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+  .sec-no{font-family:var(--mono);font-size:14px;color:var(--orange);white-space:nowrap}
+  h2.sec-title{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3vw,29px);line-height:1.3}
+  h2.sec-title .en{display:block;font-family:var(--mono);font-size:12.5px;font-weight:400;color:var(--muted);margin-top:4px}
+  h3{font-family:var(--sans);font-weight:700;font-size:17px;margin:26px 0 12px;color:var(--slate)}
+  p{margin:12px 0;color:var(--ink-soft)}
+  p strong,li strong{color:var(--ink)}
+  ul,ol.list{margin:12px 0 12px 22px}
+  li{margin:8px 0}
+  .lead{font-size:17px;color:var(--ink)}
+
+  /* 摘要结论卡 */
+  .summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+  .sum-card{background:var(--card);border:1px solid var(--line);padding:20px 22px}
+  .sum-card .tag{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.08em;margin-bottom:8px}
+  .sum-card p{margin:0;font-size:14.5px}
+
+  /* 三层判断 */
+  .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+  .layer{border:1px solid var(--line);background:var(--card);padding:18px}
+  .layer .lvl{font-family:var(--mono);font-size:12px;letter-spacing:.1em;margin-bottom:8px}
+  .layer.l1 .lvl{color:var(--teal)}
+  .layer.l2 .lvl{color:var(--orange)}
+  .layer.l3 .lvl{color:var(--muted)}
+  .layer h4{font-size:15.5px;margin-bottom:8px}
+  .layer p{font-size:13.5px;margin:0}
+
+  /* 表格 */
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:14px;min-width:560px}
+  caption{text-align:left;font-size:12.5px;color:var(--muted);padding:10px 14px;background:var(--paper)}
+  th,td{padding:12px 14px;border-top:1px solid var(--line-soft);text-align:left;vertical-align:top}
+  th{background:var(--paper);font-weight:500;color:var(--slate);font-size:13px;white-space:nowrap}
+  td{color:var(--ink-soft)}
+  tr:first-child td{border-top:none}
+
+  /* 时间线 */
+  .timeline{margin:22px 0;display:grid;gap:0;border-left:2px solid var(--line)}
+  .tl-item{position:relative;padding:0 0 22px 28px}
+  .tl-item::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--orange)}
+  .tl-date{font-family:var(--mono);font-size:13px;color:var(--orange)}
+  .tl-body{font-size:14.5px;margin-top:4px}
+  .tl-body p{margin:4px 0 0}
+
+  /* 双栏 */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px}
+  .col-box{border:1px solid var(--line);background:var(--card);padding:20px 22px}
+  .col-box.pros{border-top:3px solid var(--teal)}
+  .col-box.cons{border-top:3px solid var(--orange)}
+  .col-box h4{font-size:15px;margin-bottom:10px}
+  .col-box ul{margin:0 0 0 18px}
+
+  /* 场景卡 */
+  .scene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .scene{background:var(--card);border:1px solid var(--line);padding:18px}
+  .scene .ico{width:34px;height:34px;margin-bottom:12px;color:var(--slate)}
+  .scene h4{font-size:15px;margin-bottom:6px}
+  .scene p{font-size:13.5px;margin:0}
+
+  /* 证据分级提示 */
+  .note{border-left:3px solid var(--orange);background:var(--card);padding:14px 18px;margin:18px 0;font-size:14px;color:var(--ink-soft)}
+  .note .tag{font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:.08em;display:block;margin-bottom:4px}
+
+  /* 参考文献 */
+  ol.refs{margin:16px 0 0 20px;font-size:13.5px}
+  ol.refs li{margin:10px 0;color:var(--ink-soft)}
+  ol.refs li::marker{font-family:var(--mono);color:var(--orange)}
+  sup.ref a{font-family:var(--mono);font-size:11px;color:var(--orange)}
+
+  footer{padding:34px 0 50px;color:var(--muted);font-size:13px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:860px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .summary-grid,.two-col,.layers,.scene-grid{grid-template-columns:1fr}
+    nav.toc ol{grid-template-columns:1fr}
+  }
+  @media (max-width:480px){
+    .wrap{padding:0 18px}
+    .kpis{grid-template-columns:1fr 1fr}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= 封面 ================= -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">飞行汽车技术基础 · 课程作业一 / Assignment 01</div>
+    <h1>亿航 EH216-S 无人驾驶载人 eVTOL<br>技术可行性、应用场景与市场可行性调研</h1>
+    <p class="subtitle">
+      从产品定义、系统架构、运行场景与商业化进展四个维度，对全球首批取得中国民航局型号合格证、生产许可证、标准适航证与运营合格证的载人级多旋翼 eVTOL 进行系统调研与可行性判断。
+      <span class="en">EH216-S: Technical, Operational, and Market Feasibility — a course research case study.</span>
+    </p>
+
+    <figure class="hero-fig">
+      <img src="https://aka.doubaocdn.com/s/zG0w9i5qYL" alt="双座多旋翼 eVTOL 城郊上空飞行概念示意图">
+      <figcaption>封面为概念示意图（AI 生成），仅用于呈现研究对象类别，不代表 EH216-S 官方产品照片；构型参考公开资料中的八轴十六旋翼双座布局。</figcaption>
+    </figure>
+
+    <div class="meta-row">
+      <span>研究对象：<b>EHang EH216-S 无人驾驶航空器系统</b></span>
+      <span>所属公司：<b>亿航智能 EHang Holdings Limited</b></span>
+      <span>证据截止：<b>2026-11-23</b></span>
+      <span>作者：<b>＿＿＿＿＿＿（学生本人填写）</b></span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">2<small> 座</small></div><div class="lab">乘员座位数</div></div>
+      <div class="kpi"><div class="num">30<small> km</small></div><div class="lab">最大航程</div></div>
+      <div class="kpi"><div class="num">25<small> min</small></div><div class="lab">最大航时</div></div>
+      <div class="kpi"><div class="num">130<small> km/h</small></div><div class="lab">最大设计速度</div></div>
+      <div class="kpi"><div class="num">4<small> 证</small></div><div class="lab">TC / PC / AC / OC</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 目录 ================= -->
+<div class="wrap">
+  <nav class="toc">
+    <h2>目录 / Contents</h2>
+    <ol>
+      <li><a href="#s1">执行摘要</a></li>
+      <li><a href="#s2">研究设计与证据边界</a></li>
+      <li><a href="#s3">产品定义与发展路径</a></li>
+      <li><a href="#s4">系统架构与关键技术</a></li>
+      <li><a href="#s5">技术可行性评估</a></li>
+      <li><a href="#s6">应用场景分析</a></li>
+      <li><a href="#s7">市场可行性分析</a></li>
+      <li><a href="#s8">竞品横向比较</a></li>
+      <li><a href="#s9">结论与工程化路线</a></li>
+      <li><a href="#refs">参考文献</a></li>
+    </ol>
+  </nav>
+</div>
+
+<main class="wrap">
+
+  <!-- ================= 01 执行摘要 ================= -->
+  <section id="s1">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <h2 class="sec-title">执行摘要<span class="en">Executive Summary</span></h2>
+    </div>
+    <p class="lead">EH216-S 是一款以<strong>完全自主飞行、无机载飞行员</strong>为特征的双座多旋翼电动垂直起降航空器。它的产品定位不是城际通勤出租车，而是在既定航线、受限空域内执行短途载人飞行的专用平台。</p>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="tag">判断一 · 取证状态</div>
+        <p>EH216-S 是全球首款集齐中国民航局 TC（型号合格证）、AC（标准适航证）、PC（生产许可证）与 OC（运营合格证）的载人 eVTOL，标志着其设计、批量生产与商业运行在现行中国规则下具备了合规基础。<sup class="ref"><a href="#ref4">[4]</a></sup></p>
+      </div>
+      <div class="sum-card">
+        <div class="tag">判断二 · 技术定位</div>
+        <p>八轴十六旋翼分布式动力、三套独立飞控与全备份架构，解决的是"单动力单元失效后仍可安全降落"的容损问题；但 30 km 航程、25 min 航时决定了它当前只覆盖点对点短途与固定航线飞行。<sup class="ref"><a href="#ref1">[1]</a></sup><sup class="ref"><a href="#ref11">[11]</a></sup></p>
+      </div>
+      <div class="sum-card">
+        <div class="tag">判断三 · 场景现状</div>
+        <p>已落地的商业与试运行场景集中在景区空中游览、城市文旅观光、警用巡查与应急（灭火、物流）等任务；城市内部大规模通勤 UAM 仍受航程、起降设施与空域管理制约，尚处于早期验证阶段。<sup class="ref"><a href="#ref3">[3]</a></sup><sup class="ref"><a href="#ref8">[8]</a></sup></p>
+      </div>
+      <div class="sum-card">
+        <div class="tag">判断四 · 市场阶段</div>
+        <p>市场处于"小批量交付、场景先行走通"的早期阶段：订单与运营站点以文旅和地方示范项目为主，收入规模有限；能否走向大众通勤，取决于电池能量密度、空域基础设施、公众接受度与跨地区适航互认。<sup class="ref"><a href="#ref5">[5]</a></sup><sup class="ref"><a href="#ref7">[7]</a></sup></p>
+      </div>
+    </div>
+
+    <h3>可行性分层结论</h3>
+    <div class="layers">
+      <div class="layer l1">
+        <div class="lvl">已验证 / Demonstrated</div>
+        <h4>受限场景内的自主载人飞行</h4>
+        <p>在预设航线、隔离或低冲突空域、昼间良好气象条件下完成载人飞行与商业售票观光；单机与编队调度、地面站监控流程已投入实际运行。</p>
+      </div>
+      <div class="layer l2">
+        <div class="lvl">工程化待验证 / Engineering-unverified</div>
+        <h4>更长航程与更复杂城市运行</h4>
+        <p>多旋翼构型的巡航效率、电池能量密度与快充循环寿命、城市峡谷环境下的导航与通信可靠性、高密度空域冲突规避，仍需更大样本量的运行数据支撑。</p>
+      </div>
+      <div class="layer l3">
+        <div class="lvl">运输化未证明 / Unproven</div>
+        <h4>大众城市通勤与跨网运营</h4>
+        <p>面向通勤需求的高频次、高可靠性、全天候、跨城区网络化运输，以及海外市场适航准入，当前公开证据尚不足以证明其商业成熟度。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 研究设计 ================= -->
+  <section id="s2">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <h2 class="sec-title">研究设计与证据边界<span class="en">Method and Evidence Boundary</span></h2>
+    </div>
+    <p>本文采用"系统综述式案例评估"：先界定研究对象与时间范围，再按来源分级收集证据，最后做工程与商业判断。研究对象限定为亿航 EH216-S 载人航空器系统（含航空器、地面控制站与数据链路），时间范围从机型公开研制至 2026 年 11 月 23 日。</p>
+
+    <h3>来源分级规则</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>来源类别</th><th>代表来源</th><th>可证明的内容</th><th>不能单独证明的内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>监管文件</td><td>CAAC 专用条件、适航与运营许可披露</td><td>审定基础、构型参数、合规条款与取证状态</td><td>实际运营可靠性与长期寿命</td></tr>
+          <tr><td>企业官方披露</td><td>官网产品页、投资者关系公告、财报</td><td>官方标称指标、交付数量、订单与运营安排</td><td>未经第三方核验的性能承诺</td></tr>
+          <tr><td>主流媒体与调研</td><td>新华网、人民网、人民日报、行业媒体</td><td>运行现场、采访口径与交叉核验</td><td>替代工程测试数据</td></tr>
+          <tr><td>第三方综述与标准</td><td>行业技术综述、适航标准框架</td><td>技术机理、行业横向位置与合规参照</td><td>特定机型的实测表现</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="tag">口径说明</span>
+      最大起飞重量在 CAAC 专用条件中为 <strong>650 kg</strong><sup class="ref"><a href="#ref1">[1]</a></sup>，亿航官网产品页标注为 <strong>620 kg</strong><sup class="ref"><a href="#ref2">[2]</a></sup>；本文在引用时保留各自口径，不做强行统一。价格、订单等商业数字随时间与地区变化，均标注来源与时点。
+    </div>
+
+    <p><strong>纳入标准：</strong>与 EH216-S 直接相关、可追溯到原始出处、能解释其技术构型、运行场景、市场或合规路径的材料。<strong>排除标准：</strong>无法定位原文的二次转述；将概念渲染或演示视频当作量产性能；无出处的航程、载客与价格传闻；以及用"万亿级低空市场"直接推导单款产品销量的营销表述。</p>
+  </section>
+
+  <!-- ================= 03 发展路径 ================= -->
+  <section id="s3">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <h2 class="sec-title">产品定义与发展路径<span class="en">Product Definition and Development Path</span></h2>
+    </div>
+    <p>EH216-S 属于<strong>多旋翼（multirotor）eVTOL</strong> 路线：没有机翼与推进螺旋桨，全部升力由旋翼提供，依靠调节各旋翼转速实现姿态与轨迹控制。这一路线结构简单、悬停效率高，但巡航速度与航程受旋翼构型和电池能量密度限制明显。</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2017 年起</div>
+        <div class="tl-body"><p>亿航公开 EH216 系列载人无人驾驶飞行器概念并开展系列试飞，定位短途低空载人与演示飞行。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2022 年 02 月</div>
+        <div class="tl-body"><p>中国民航局发布《亿航 EH216-S 型无人驾驶航空器系统专用条件》，明确载人无人驾驶航空器的审定基础与基本参数。<sup class="ref"><a href="#ref1">[1]</a></sup></p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2023 年 10 月</div>
+        <div class="tl-body"><p>获得 CAAC 颁发的全球首张载人无人驾驶 eVTOL 型号合格证（TC）；同年 12 月取得首批标准适航证（AC）。<sup class="ref"><a href="#ref4">[4]</a></sup></p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024 年 04 月</div>
+        <div class="tl-body"><p>取得生产许可证（PC），意味着机型设计定型后可按批准的质量体系批量生产。</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 年 03 月</div>
+        <div class="tl-body"><p>合翼航空等运营方取得 EH216-S 运营合格证（OC），在广州、合肥开展载人试运行；机型由此集齐 TC / PC / AC / OC 四证。<sup class="ref"><a href="#ref6">[6]</a></sup></p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026 年 03 月</div>
+        <div class="tl-body"><p>EH216-S 在中国启动面向公众的商业售票空中游览，由持有 OC 的运营方在广州亿航未来城、合肥骆岗公园等站点执飞。<sup class="ref"><a href="#ref6">[6]</a></sup></p></div>
+      </div>
+    </div>
+
+    <h3>平台族与衍生型号</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>型号 / 分支</th><th>定位</th><th>关键特征（公开口径）</th><th>证据状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EH216-S</td><td>双座载人多旋翼 eVTOL</td><td>八轴十六旋翼，自主飞行，30 km / 25 min，130 km/h</td><td>取证并商业运行</td></tr>
+          <tr><td>EH216-EK（灭火型）</td><td>应急任务构型</td><td>最大设计起飞重量约 620 kg，任务载荷约 160 kg，机腹悬挂多枚灭火弹</td><td>企业披露 / 下线展示<sup class="ref"><a href="#ref12">[12]</a></sup></td></tr>
+          <tr><td>VT35</td><td>复合翼城际型（平台延伸）</td><td>航程与速度定位高于多旋翼 EH216 系列；公开订单单价约 650 万元人民币</td><td>订单与交付早期阶段<sup class="ref"><a href="#ref5">[5]</a></sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= 04 系统架构 ================= -->
+  <section id="s4">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <h2 class="sec-title">系统架构与关键技术<span class="en">Architecture and Key Technologies</span></h2>
+    </div>
+    <p>EH216-S 系统由三部分构成：<strong>无人驾驶航空器本体、地面控制站（指挥调度系统）与数据链路</strong>。航空器依靠动力电池驱动 16 套电机与螺旋桨，通过差异转速完成垂直起降与飞行操纵；飞控、传感器、动力与电池等关键部件采用多套备份设计。<sup class="ref"><a href="#ref1">[1]</a></sup><sup class="ref"><a href="#ref2">[2]</a></sup></p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>表 4-1 主要技术参数（口径来源见备注）</caption>
+        <thead>
+          <tr><th>项目</th><th>参数 / 描述</th><th>来源口径</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>乘员</td><td>2 人</td><td>CAAC 专用条件<sup class="ref"><a href="#ref1">[1]</a></sup></td></tr>
+          <tr><td>最大起飞重量</td><td>650 kg（专用条件）／ 620 kg（官网产品页）</td><td>[1] / [2]</td></tr>
+          <tr><td>最大航程 / 航时</td><td>30 km / 25 min</td><td>CAAC 专用条件<sup class="ref"><a href="#ref1">[1]</a></sup></td></tr>
+          <tr><td>最大设计速度</td><td>130 km/h</td><td>CAAC 专用条件<sup class="ref"><a href="#ref1">[1]</a></sup></td></tr>
+          <tr><td>动力布局</td><td>八轴十六旋翼（共轴双旋翼），16 台电机 + 16 副碳纤维螺旋桨</td><td>专用条件 / 第三方资料<sup class="ref"><a href="#ref10">[10]</a></sup></td></tr>
+          <tr><td>动力电池</td><td>12 组动力电池提供飞行动力；纯电驱动，公开报道快充约 1 小时</td><td>专用条件 / 媒体<sup class="ref"><a href="#ref1">[1]</a></sup><sup class="ref"><a href="#ref3">[3]</a></sup></td></tr>
+          <tr><td>飞控架构</td><td>三套独立飞行控制系统，多传感器感知速度、高度、姿态与位置，含投票机制</td><td>专用条件 / 官网<sup class="ref"><a href="#ref1">[1]</a></sup><sup class="ref"><a href="#ref2">[2]</a></sup></td></tr>
+          <tr><td>导航与运行</td><td>GNSS 精确定位 + 预设航线自主飞行；地面站集中监测、调度、管理与预警</td><td>官网 / 媒体<sup class="ref"><a href="#ref2">[2]</a></sup><sup class="ref"><a href="#ref3">[3]</a></sup></td></tr>
+          <tr><td>机身尺寸</td><td>高约 1.93 m，宽约 5.73 m；碳纤维机身</td><td>官网<sup class="ref"><a href="#ref2">[2]</a></sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>关键技术模块解读</h3>
+    <ul class="list">
+      <li><strong>分布式电推进：</strong>升力由 16 个旋翼共同承担，单个电机或旋翼失效后，其余动力单元可在飞控调控下补偿推力并维持姿态，这是多旋翼 eVTOL 容损设计的物理基础。<sup class="ref"><a href="#ref11">[11]</a></sup></li>
+      <li><strong>冗余飞控与感知：</strong>三套独立飞控并行工作并通过投票仲裁，配合多套传感器交叉比对姿态、位置与速度信息，避免单一传感器或单通道出错导致误动作。<sup class="ref"><a href="#ref2">[2]</a></sup></li>
+      <li><strong>自主飞行与地面调度：</strong>起飞前规划航线，飞行过程以自主控制为主；地面指挥调度系统与航空器、地面站实时数据交互，承担监测、调度、预警与集群管理职能。<sup class="ref"><a href="#ref2">[2]</a></sup></li>
+      <li><strong>能源系统约束：</strong>纯电方案运行安静、零航行排放，但航程与载重直接受电池能量密度制约；多旋翼在巡航段的气动效率也低于带机翼的复合翼 / 倾转旋翼构型。</li>
+    </ul>
+  </section>
+
+  <!-- ================= 05 技术可行性 ================= -->
+  <section id="s5">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <h2 class="sec-title">技术可行性评估<span class="en">Technical Feasibility Assessment</span></h2>
+    </div>
+    <p>技术可行性不能用"能飞起来"一句话概括。结合构型原理、公开参数与运行记录，EH216-S 在<strong>受限短途载人</strong>方向已具备工程可行性；在<strong>长航程、全天候城市通勤</strong>方向仍存在明确技术瓶颈。</p>
+
+    <div class="two-col">
+      <div class="col-box pros">
+        <h4>已具备的技术基础</h4>
+        <ul>
+          <li>分布式多旋翼提供天然动力冗余，单动力单元失效后可补偿降落。<sup class="ref"><a href="#ref11">[11]</a></sup></li>
+          <li>飞控、传感器、动力、电池多套备份，故障时备份通道无缝接管。<sup class="ref"><a href="#ref3">[3]</a></sup></li>
+          <li>无需跑道，垂直起降，适合场地受限的景区、园区与城市边缘起降点。</li>
+          <li>电驱动系统结构相对简单，运动部件少于传统直升机，维护路径清晰。</li>
+          <li>已通过载人 eVTOL 适航审定流程，工程文档与验证链条获得监管认可。</li>
+        </ul>
+      </div>
+      <div class="col-box cons">
+        <h4>尚未突破的技术约束</h4>
+        <ul>
+          <li>30 km 航程与 25 min 航时只覆盖短途点对点，难以承担跨城区通勤。</li>
+          <li>多旋翼巡航效率有限，130 km/h 为设计速度，经济巡航速度与航程随载重、气象变化。</li>
+          <li>电池能量密度、快充循环寿命与热失控防护是航空电动化的共性瓶颈。</li>
+          <li>城市峡谷、电磁环境、GNSS 多路径与遮挡条件下的导航可靠性仍需数据积累。</li>
+          <li>抗风、降雨、低能见度等气象边界明确，运行窗口受限。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="tag">工程判断</span>
+      EH216-S 当前的技术可行性，等价于"在限定航线、限定空域、限定气象窗口内重复执行短途载人任务"的可行性；把这一结论外推到全天候、网络化城市通勤，需要新一代能源、气动构型与空域系统共同支撑，不能由现有演示直接得出。
+    </div>
+  </section>
+
+  <!-- ================= 06 应用场景 ================= -->
+  <section id="s6">
+    <div class="sec-head">
+      <span class="sec-no">06</span>
+      <h2 class="sec-title">应用场景分析<span class="en">Application Scenarios</span></h2>
+    </div>
+    <p>按"技术匹配度 × 商业成熟度"两个维度，EH216-S 的场景可分为当前已落地场景、试运行场景与远期探索场景。</p>
+
+    <div class="scene-grid">
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-6h6v6"/></svg>
+        <h4>景区与城市文旅观光</h4>
+        <p>当前最成熟的场景：在景区、公园与城市地标上空按固定航线载客游览，票价制运营，航线与空域预先申报。<sup class="ref"><a href="#ref6">[6]</a></sup></p>
+      </div>
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <h4>警用与巡查执法</h4>
+        <p>载人警用机型用于城市空中巡查、应急指挥与重点区域监控，依托预设航线与地面站联动执行任务。<sup class="ref"><a href="#ref12">[12]</a></sup></p>
+      </div>
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7z"/></svg>
+        <h4>应急救援与消防</h4>
+        <p>衍生构型可投送灭火弹、运载应急物资；载人构型可承担侦察、通讯中继与人员转运辅助角色。</p>
+      </div>
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 11h4M9 9v4"/></svg>
+        <h4>低空物流与载货</h4>
+        <p>在载人平台之外拓展载货任务构型，面向园区、景区与应急物资运输，载荷与航程按任务重新平衡。</p>
+      </div>
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 17l6-6-6-6M12 17h8"/></svg>
+        <h4>空中媒体与编队表演</h4>
+        <p>依托集群调度能力承担夜间编队、灯光表演与活动直播，是企业收入结构中已被财报单列的业务方向。<sup class="ref"><a href="#ref5">[5]</a></sup></p>
+      </div>
+      <div class="scene">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <h4>远期：城市点对点通勤</h4>
+        <p>面向 UAM 的机场—市区、片区—片区通勤是行业远期目标；EH216-S 当前航程与运营模式尚不足以支撑，需等待构型、能源与基础设施成熟。</p>
+      </div>
+    </div>
+
+    <h3>场景适配性对照</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>场景</th><th>航程需求</th><th>频次 / 密度</th><th>与当前构型匹配度</th><th>主要制约</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>景区观光</td><td>短（数 km）</td><td>中，按班次</td><td>高</td><td>天气窗口、起降场地</td></tr>
+          <tr><td>警用巡查</td><td>短—中</td><td>按需出动</td><td>中—高</td><td>任务载荷、抗风等级</td></tr>
+          <tr><td>应急消防</td><td>短</td><td>低，任务制</td><td>中（需专用构型）</td><td>载荷、高温环境、悬停精度</td></tr>
+          <tr><td>低空物流</td><td>短—中</td><td>中—高</td><td>中</td><td>载货空间与航程平衡</td></tr>
+          <tr><td>城市通勤</td><td>中（10—50 km+）</td><td>高，网络化</td><td>低—中（待演进）</td><td>航程、效率、空域、基础设施、公众接受度</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= 07 市场可行性 ================= -->
+  <section id="s7">
+    <div class="sec-head">
+      <span class="sec-no">07</span>
+      <h2 class="sec-title">市场可行性分析<span class="en">Market Feasibility Analysis</span></h2>
+    </div>
+
+    <h3>定价与商业口径</h3>
+    <ul class="list">
+      <li>国内市场公开报道口径售价约 <strong>239 万元人民币</strong>；海外市场官方指导价为 <strong>41 万美元</strong>（2023 年公布）。<sup class="ref"><a href="#ref9">[9]</a></sup></li>
+      <li>当前客户以地方文旅平台、国资产业投资平台、警用与应急单位为主，采购目的兼具示范运营与产业落地属性。</li>
+    </ul>
+
+    <h3>交付、订单与运营进展（公开披露口径）</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>时间 / 区间</th><th>进展</th><th>来源</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2025 年上半年</td><td>国内外建成 40 余个 EH216-S 运营站点，累计安全飞行超过 1 万架次</td><td>企业 IR 披露<sup class="ref"><a href="#ref6">[6]</a></sup></td></tr>
+          <tr><td>2025 年 06 月</td><td>贵州贵旅集团订购 50 架 EH216-S，用于景区低空文旅观光；同月长春净月国资平台采购 41 架，面向高寒场景示范</td><td>[7] / 行业报道<sup class="ref"><a href="#ref8">[8]</a></sup></td></tr>
+          <tr><td>2026 年 Q1</td><td>交付 EH216 系列 4 架；同期空中媒体表演与编队无人机构成重要收入来源</td><td>企业财报<sup class="ref"><a href="#ref5">[5]</a></sup></td></tr>
+          <tr><td>2026 年 Q2</td><td>交付 eVTOL 共 36 架，其中 EH216 系列 35 架、VT35 1 架</td><td>企业财报<sup class="ref"><a href="#ref5">[5]</a></sup></td></tr>
+          <tr><td>2026 年 03 月起</td><td>在广州、合肥站点启动面向公众的商业售票空中游览，由持 OC 运营方执飞</td><td>企业 IR<sup class="ref"><a href="#ref6">[6]</a></sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="col-box pros">
+        <h4>市场驱动因素</h4>
+        <ul>
+          <li>低空经济被纳入地方产业规划，文旅、警用、应急等场景有明确采购与示范需求。</li>
+          <li>四证齐全形成先发合规壁垒，在国内载人 eVTOL 商业化进度上处于第一梯队。</li>
+          <li>自主无人驾驶降低了飞行员培训与人力成本，利于规模化班次运营。</li>
+          <li>多站点运行积累的安全飞行记录，是后续扩大运营范围与对外展示的基础资产。</li>
+        </ul>
+      </div>
+      <div class="col-box cons">
+        <h4>市场制约因素</h4>
+        <ul>
+          <li>单机售价高，当前客户依赖项目制与政策推动，大众自费出行市场尚未形成。</li>
+          <li>起降场、充电换电、空域审批与调度网络等基础设施尚在建设早期。</li>
+          <li>公众对载人飞行器的安全信任需要长期、透明的运行记录建立。</li>
+          <li>海外适航准入与跨地区运营互认尚未打通，出口市场受限。</li>
+          <li>订单向交付、向稳定收入的转化节奏存在季度波动，财报显示交付量并不连续。<sup class="ref"><a href="#ref5">[5]</a></sup></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="tag">市场判断</span>
+      EH216-S 当前属于<strong>政策与场景双驱动的早期专用装备市场</strong>，而不是面向大众的通勤出行市场。短期商业可行性取决于文旅与示范项目的复购和运营效率；中长期空间取决于能源与构型进步能否把航程、成本和安全性推进到通勤场景可接受的区间。
+    </div>
+  </section>
+
+  <!-- ================= 08 竞品比较 ================= -->
+  <section id="s8">
+    <div class="sec-head">
+      <span class="sec-no">08</span>
+      <h2 class="sec-title">竞品横向比较<span class="en">Comparison with Contenders</span></h2>
+    </div>
+    <p>全球载人 eVTOL 主要分为多旋翼、复合翼与倾转旋翼三条技术路线。下表选取代表性机型，对比构型、定位与合规进度；表中海外机型参数以公开口径为准，认证状态随时间变化。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>机型 / 厂商</th><th>技术路线</th><th>乘员 / 驾驶方式</th><th>定位</th><th>合规与商业状态（2026-11 口径）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EH216-S / 亿航智能（中国）</td><td>多旋翼，八轴十六旋翼</td><td>2 座，无人驾驶自主飞行</td><td>短途文旅、巡查、应急专用平台</td><td>TC / PC / AC / OC 四证齐全，国内小批量商业运行<sup class="ref"><a href="#ref4">[4]</a></sup></td></tr>
+          <tr><td>Joby / Joby Aviation（美国）</td><td>倾转 / 复合翼布局</td><td>多人座，配备飞行员备份方案</td><td>城市空中出租车，中程点对点</td><td>处于 FAA 适航认证进程中，尚未大规模商业交付</td></tr>
+          <tr><td>Midnight / Archer（美国）</td><td>复合翼（升力旋翼 + 巡航桨）</td><td>飞行员 + 乘客布局</td><td>城市短途通勤接驳</td><td>认证与运营筹备阶段，面向 UAM 网络运营</td></tr>
+          <tr><td>VoloCity / Volocopter（德国）</td><td>多旋翼（多旋翼阵列）</td><td>2 座</td><td>城市空中出租车</td><td>EASA 审定进程中；公司经历财务重组，商业化进度需持续跟踪</td></tr>
+          <tr><td>陆地航母 / 小鹏汇天（中国）</td><td>分体式陆空结合构型</td><td>陆行车体 + 飞行体分离</td><td>个人出行与陆空两用场景</td><td>产品研发与预售阶段，定位与载人 eVTOL 不完全相同</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>横向看，EH216-S 的差异化在于<strong>无人驾驶 + 多旋翼 + 已在中国取证交付</strong>；短板是航程与速度偏低、无机载飞行员备份、市场集中在专用场景。复合翼与倾转旋翼机型在航程和巡航效率上更有潜力，但适航与系统复杂度更高，商业化进度普遍晚于多旋翼路线。</p>
+  </section>
+
+  <!-- ================= 09 结论 ================= -->
+  <section id="s9">
+    <div class="sec-head">
+      <span class="sec-no">09</span>
+      <h2 class="sec-title">结论与工程化路线<span class="en">Conclusions and Roadmap</span></h2>
+    </div>
+    <p class="lead">综合技术、场景与市场三条线索：EH216-S 是一款<strong>在特定约束条件下已经跑通商业闭环的短途自主载人 eVTOL</strong>，其价值在于验证了无人驾驶载人航空器的合规路径与运营流程；它距离大众城市通勤仍有清晰的技术与基础设施距离。</p>
+
+    <h3>工程化推进的关键观察点</h3>
+    <ol class="list">
+      <li><strong>能源：</strong>电池能量密度、快充循环寿命与热失控防护是否取得可验证的航空级进展，直接决定航程与载重边界。</li>
+      <li><strong>构型演进：</strong>在多旋翼平台之外，复合翼 / 倾转旋翼分支（如 VT35）能否把航程提升到中程场景，是平台族扩展的关键。</li>
+      <li><strong>运行数据：</strong>更大样本量的飞行小时、故障与事件记录，用于验证长期可靠性与维护策略，而非仅靠演示飞行。</li>
+      <li><strong>基础设施：</strong> vertiport 选址、充换电保障、低空交通管理与空域协同，决定场景能否从单点示范走向网络化。</li>
+      <li><strong>合规扩展：</strong>国内运行范围扩大与海外适航准入，决定市场是局限于国内项目制，还是具备出口与跨区域运营能力。</li>
+    </ol>
+
+    <div class="note">
+      <span class="tag">课程作业边界声明</span>
+      本文为课程调研分析，所引参数与商业数据均来自公开来源，截止 2026-11-23；不构成对任何产品安全性、投资价值或量产交付时间的背书。涉及安全细节的进一步系统分析，见配套作业二《EH216-S 全方位安全分析》。
+    </div>
+  </section>
+
+  <!-- ================= 参考文献 ================= -->
+  <section id="refs">
+    <div class="sec-head">
+      <span class="sec-no">10</span>
+      <h2 class="sec-title">参考文献<span class="en">References</span></h2>
+    </div>
+    <ol class="refs">
+      <li id="ref1">中国民用航空局.《亿航 EH216-S 型无人驾驶航空器系统专用条件》. http://www.caac.gov.cn/XXGK/XXGK/BZGF/ZYTJHHM/202202/P020220222611863596239.pdf</li>
+      <li id="ref2">亿航智能. EH216-S 产品页（中文官网）. https://www.ehang.com/cn/ehang216s/</li>
+      <li id="ref3">新华网.《"空中的士"飞入现实》. https://app.xinhuanet.com/news/article.html?articleId=79ed2441b6af1ed7fb0375f9c54ae726</li>
+      <li id="ref4">人民日报海外版.《未来城市低空交通跃向新高度》（TC / PC / AC / OC 四证进展）. http://paper.people.com.cn/rmrbhwb/pad/content/202511/11/content_30114243.html</li>
+      <li id="ref5">EHang Holdings Limited. Second Quarter 2026 Unaudited Financial Results（交付与营收口径）. https://ir.ehang.com/news-releases/news-release-details/ehang-reports-second-quarter-2026-unaudited-financial-results</li>
+      <li id="ref6">EHang Holdings Limited. Commercial Operations Progress in China（OC 运营方与商业售票站点）. https://ir.ehang.com/node/12506/html</li>
+      <li id="ref7">EHang. Order for 50 Units of EH216-S from Guizhou and Anshun Cooperation. https://ir.ehang.com/news-releases/news-release-details/ehang-secures-order-50-units-eh216-s-guizhou-and-partners-anshun</li>
+      <li id="ref8">36氪.《飞行汽车的商业化实战，中国头部公司已经到哪一步了？》. https://36kr.com/p/4035366850204800</li>
+      <li id="ref9">EHang. EH216-S 中国以外市场官方指导价 41 万美元公告. https://www.ehang.com/news/1048.html</li>
+      <li id="ref10">DataDeep Tech. EHang's EH216-S and VT35: Certified Pilotless Passenger eVTOL Program（动力与冗余架构综述）. https://datadeep.tech/ehang-air-mobility/</li>
+      <li id="ref11">天空之家.《亿航智能获全球首张型号合格证 eVTOL 适航审定中国方案引领世界》（单动力单元失效试验）. https://skyfamily.com.cn/news/1/3876.html</li>
+      <li id="ref12">澎湃新闻.《全国首台警用载人无人机"上岗"》. https://m.thepaper.cn/newsDetail_forward_32402674</li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>飞行汽车技术基础 · 课程作业一：EH216-S 调研与可行性分析</span>
+    <span>证据截止 2026-11-23 · 页面为静态 HTML，可直接部署于 GitHub Pages</span>
+  </div>
+</footer>
+
+</body>
+</html>
